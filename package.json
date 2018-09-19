@@ -7,7 +7,8 @@
         "build": "webpack",
         "client": "NODE_ENV=development webpack-dev-server",
         "serve": "serve",
-        "start": "concurrently --kill-others \"npm run client\" \"babel-node server.js\""
+        "start": "concurrently --kill-others \"npm run client\" \"babel-node server.js\"",
+        "s": "babel-node server.js"
     },
     "author": "Robin Frischmann <robin@rofrischmann.de>",
     "license": "MIT",
