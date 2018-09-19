@@ -17,7 +17,7 @@ const build = async () => {
   )
   const appCSS = renderToMarkup(renderer)
   
-  fs.writeFile('index.html', indexHTML.replace('<!-- {{app}} -->', appHtml).replace('<!-- {{css}} -->', appCSS), (err) => console.log(err, 'OK'))
+  fs.writeFile('index.html', indexHTML.replace('<!-- {{app}} -->', appHtml).replace('<!-- {{css}} -->', appCSS), (err) => process.exit())
 }
 
 build();
