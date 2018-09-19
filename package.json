@@ -4,7 +4,7 @@
     "version": "2.0.30",
     "description": "Fela example with React",
     "scripts": {
-        "build": "webpack",
+        "build": "webpack && babel-node build.js",
         "client": "NODE_ENV=development webpack-dev-server",
         "serve": "serve",
         "start": "concurrently --kill-others \"npm run client\" \"babel-node server.js\"",

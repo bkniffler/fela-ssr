@@ -1,5 +1,3 @@
-import express from 'express'
-import proxy from 'express-http-proxy'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-fela'
@@ -8,11 +6,7 @@ import { renderToMarkup } from 'fela-dom'
 import App from './app'
 import createRenderer from './renderer'
 
-const app = express()
-
-app.use('/bundle.js', proxy('localhost:8080', { forwardPath: () => '/bundle.js' }))
-
-app.get('/', (req, res) => {
+const build = async () => {
   const renderer = createRenderer()
 
   const indexHTML = fs.readFileSync(`${__dirname}/_index.html`).toString()
@@ -22,11 +16,8 @@ app.get('/', (req, res) => {
     </Provider>
   )
   const appCSS = renderToMarkup(renderer)
+  
+  fs.writeFile('index.html', indexHTML.replace('<!-- {{app}} -->', appHtml).replace('<!-- {{css}} -->', appCSS), (err) => console.log(err, 'OK'))
+}
 
-  res.write(indexHTML.replace('<!-- {{app}} -->', appHtml).replace('<!-- {{css}} -->', appCSS))
-  res.end()
-})
-
-app.listen(8000, 'localhost', () => {
-  console.log('Access the universal app at http://%s:%d', 'localhost', 8000)
-})
+build();
